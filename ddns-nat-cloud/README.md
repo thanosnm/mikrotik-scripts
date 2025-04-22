@@ -1,26 +1,48 @@
-# DynDNS (NAT + Cloud IP)
 
-🇬🇧 *English below*
+# DDNS μέσω MikroTik Cloud
 
-## ☁️ Ενημέρωση DynDNS μέσω MikroTik IP Cloud
+🇬🇷 *English below*
 
-Αυτό το script ενημερώνει το DynDNS hostname χρησιμοποιώντας τη δημόσια IP που λαμβάνεται από το built-in MikroTik IP Cloud. Χρήσιμο όταν ο router βρίσκεται πίσω από NAT/modem.
+## 🌐 Αυτόματο DDNS update για Router πίσω από NAT
+
+Αυτό το script ενημερώνει δυναμικά το DynDNS hostname με την **public IP από το /ip cloud** του MikroTik router.  
+Ιδανικό όταν ο router βρίσκεται **πίσω από NAT** και δεν έχει απευθείας δημόσια IP σε κάποιο interface.
 
 ### ✅ Οδηγίες
 
-1. Πήγαινε στο **System > Scripts** και δημιούργησε νέο script με όνομα `ddns-nat-cloud`
-2. Επικόλλησε το περιεχόμενο από το `script.txt`
-3. Δώσε permissions: `read`, `write`, `test`
-4. Πρόσθεσε scheduler από `scheduler.rsc` ή χειροκίνητα με:
+1. Ρύθμισε `hostname`, `username`, `password`
+2. Δημιούργησε script στο **System > Scripts**
+3. Πρόσθεσε scheduler:
 
 ```shell
 /system scheduler
-add name="DynDNS-NAT" interval=5m on-event="/system script run ddns-nat-cloud" policy=read,write,test
+add name="ddnsUpdate" interval=5m on-event="/system script run ddns-nat-cloud" policy=read,write,test
+```
+
+---
+
+## DDNS via MikroTik Cloud (English)
+
+This script updates your DynDNS hostname using the **public IP retrieved via `/ip cloud`**.  
+Perfect for setups where your MikroTik is **behind NAT** and has no public IP on an interface.
+
+### ✅ Instructions
+
+1. Configure `hostname`, `username`, `password`
+2. Add the script in **System > Scripts**
+3. Set scheduler:
+
+```shell
+/system scheduler
+add name="ddnsUpdate" interval=5m on-event="/system script run ddns-nat-cloud" policy=read,write,test
 ```
 
 
 
+## 👤 Author
 
+**Thanos Pournaras**  
+🔗 https://thanosnm.github.io
 
 ---
 
@@ -39,3 +61,4 @@ add name="DynDNS-NAT" interval=5m on-event="/system script run ddns-nat-cloud" p
     <img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee" style="height: 42px;">
   </a>
 </div>
+

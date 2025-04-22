@@ -8,7 +8,7 @@
 :local minUpload 5
 :local maxPing 100
 
-:local result [/tool speed-test address=speedtest.mikrotik.com duration=5s]
+:local result [/tool speed-test address=159.148.147.244 duration=5s]
 
 :local ping ($result->"ping-average")
 :local download ($result->"download-average")

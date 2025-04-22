@@ -6,5 +6,4 @@ A collection of useful MikroTik RouterOS scripts created and maintained by **Tha
 ## Available Scripts
 
 - [`internet-monitor`](./internet-monitor) – Monitors internet connectivity and reboots or restarts interface on failure
-
-More coming soon...
+- [`auto-backup`](./auto-backup) – Automatically backs up MikroTik config and sends it via email

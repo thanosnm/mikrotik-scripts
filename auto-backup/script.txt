@@ -1,0 +1,23 @@
+# ===============================================================
+# MikroTik Auto Backup Script (with Email)
+# Made & Powered by Thanos Pournaras
+# GitHub: https://thanosnm.github.io
+# ===============================================================
+
+:local backupDate [/system clock get date]
+:local backupTime [/system clock get time]
+:set backupDate [:pick $backupDate 7 11].[:pick $backupDate 0 3].[:pick $backupDate 4 6]
+:set backupTime [:pick $backupTime 0 2] . "-" . [:pick $backupTime 3 5]
+
+:local backupName ("auto-backup_" . $backupDate . "_" . $backupTime)
+
+/system backup save name=$backupName
+/export file=$backupName
+
+:delay 5s
+
+/tool e-mail send to="youremail@gmail.com" subject=("RouterOS Auto Backup " . $backupDate) \
+body=("Attached backup from MikroTik router on " . $backupDate . " " . $backupTime) \
+file=($backupName . ".backup"),($backupName . ".rsc")
+
+:log info "Auto backup and email completed: $backupName"

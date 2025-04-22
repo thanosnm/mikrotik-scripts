@@ -1,0 +1,1 @@
+/system scheduler add name="DynDNS-NAT" interval=5m on-event="/system script run ddns-nat-cloud"

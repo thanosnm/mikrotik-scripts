@@ -1,0 +1,28 @@
+# ===============================================================
+# MikroTik Speedtest Logger (alerts on slow speeds)
+# Made & Powered by Thanos Pournaras
+# GitHub: https://thanosnm.github.io
+# ===============================================================
+
+:local minDownload 30
+:local minUpload 5
+:local maxPing 100
+
+:local result [/tool speed-test address=speedtest.mikrotik.com duration=5s]
+
+:local ping ($result->"ping-average")
+:local download ($result->"download-average")
+:local upload ($result->"upload-average")
+
+:log info ("[SpeedTest] Ping: $ping ms | Download: $download Mbps | Upload: $upload Mbps")
+
+:if (($download < $minDownload) or ($upload < $minUpload) or ($ping > $maxPing)) do={
+
+    :log warning "[SpeedTest] Connection below threshold - sending alert..."
+
+    /tool e-mail send to="youremail@gmail.com" subject="⚠️ Slow Internet Detected on MikroTik"     body=("Speed Test Result:
+Ping: $ping ms
+Download: $download Mbps
+Upload: $upload Mbps")
+
+}

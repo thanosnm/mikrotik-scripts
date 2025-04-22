@@ -18,38 +18,16 @@
 add name="DynDNS-NAT" interval=5m on-event="/system script run ddns-nat-cloud" policy=read,write,test
 ```
 
----
-
-## ☁️ DynDNS Update using MikroTik IP Cloud
-
-This script updates your DynDNS hostname using the public IP fetched from MikroTik's built-in IP Cloud service. Useful when the router is behind a NAT/modem.
-
-### ✅ Installation
-
-1. Go to **System > Scripts** and create a new script named `ddns-nat-cloud`
-2. Paste the contents of `script.txt` into it
-3. Set permissions: `read`, `write`, `test`
-4. Add the scheduler using `scheduler.rsc` or manually with:
-
-```shell
-/system scheduler
-add name="DynDNS-NAT" interval=5m on-event="/system script run ddns-nat-cloud" policy=read,write,test
-```
-
----
-
-## 👤 Author
-
-**Thanos Pournaras**  
-🔗 https://thanosnm.github.io  
-🛠️ https://github.com/thanosnm
 
 
 ---
 
-## ☕ Στήριξέ με / Support My Work
-
-🇬🇷 Είμαι δικτυάς και εκπαιδευτής με εμπειρία σε MikroTik, Ubiquiti και TP-Link. Αν βρήκες χρήσιμο το script, μπορείς να με στηρίξεις με έναν καφέ!  
-🇬🇧 I’m a network engineer & trainer focused on MikroTik, Ubiquiti and TP-Link networks. If you found this script useful, feel free to support me!
-
-[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)
+<div align="center" style="max-width: 700px; margin: 2em auto; padding: 1em; background: #333; color: #f1f1f1; border-radius: 10px; text-align: center;">
+  <p style="font-size: 1.1em; font-weight: bold;">
+    ✅ Δούλεψε το script; Σου έλυσε τα χέρια;
+  </p>
+  <p style="margin: 0.5em 0;">Τότε... 🤝 <strong>χρωστάς έναν καφέ!</strong></p>
+  <a href="https://buymeacoffee.com/pournarasaa" target="_blank" style="display: inline-block; margin-top: 10px;">
+    <img src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee" style="height: 42px;">
+  </a>
+</div>

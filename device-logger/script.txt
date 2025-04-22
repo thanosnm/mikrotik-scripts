@@ -1,0 +1,53 @@
+# ===============================================================
+# Active Devices Logger for MikroTik
+# Made & Powered by Thanos Pournaras
+# GitHub: https://thanosnm.github.io
+# ===============================================================
+
+# Ignore list (MAC addresses you trust)
+:local ignoreList {"AA:BB:CC:11:22:33"; "11:22:33:44:55:66"}
+
+# Get current ARP entries
+:local currentDevices ""
+:foreach item in=[/ip arp find] do={
+    :local mac [/ip arp get $item mac-address]
+    :local ip [/ip arp get $item address]
+    :local iface [/ip arp get $item interface]
+    :set currentDevices ($currentDevices . "$ip - $mac - $iface
+")
+}
+
+# Load last known devices
+:global knownDevices
+:if ([:typeof $knownDevices] = "nothing") do={ :global knownDevices "" }
+
+# Compare and detect new devices
+:local newDevices ""
+:foreach line in=[:toarray $currentDevices] do={
+    :if ([:find $knownDevices $line] = -1) do={
+        :local mac [:pick $line ([:find $line " - "] + 3) [:find $line " - " 1]]
+        :local skip false
+        :foreach trustedMac in=$ignoreList do={
+            :if ($mac = $trustedMac) do={ :set skip true }
+        }
+        :if (!$skip) do={
+            :set newDevices ($newDevices . $line . "
+")
+        }
+    }
+}
+
+# If changes, log and email
+:if ([:len $newDevices] > 0) do={
+
+    :log warning ("[Device Logger] New or unknown device(s) detected:
+" . $newDevices)
+
+    /tool e-mail send to="youremail@gmail.com" subject="New device(s) on MikroTik"     body=("New device(s) detected:
+
+" . $newDevices)
+
+    :set knownDevices $currentDevices
+} else={
+    :log info "[Device Logger] No changes in connected devices."
+}

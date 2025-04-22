@@ -1,0 +1,42 @@
+# ===============================================================
+# DynDNS Update Script using interface IP (PPPoE)
+# Made & Powered by Thanos Pournaras | https://thanosnm.github.io
+# ===============================================================
+
+:global ddnsUser "myuser"
+:global ddnsPass "mypassword123"
+:global ddnsHost "myhome.dyndns.org"
+:global ddnsLastIP
+:local theInterface "pppoe-out1"
+
+:local ipfresh [/ip address get [find interface=$theInterface] address]
+:if ([:typeof $ipfresh] = "nothing") do={
+    :log info "DynDNS: Interface has no IP address."
+    :return
+}
+
+# Remove CIDR (e.g. /32)
+:for i from=([:len $ipfresh] - 1) to=0 do={
+    :if ([:pick $ipfresh $i] = "/") do={
+        :set ipfresh [:pick $ipfresh 0 $i]
+    }
+}
+
+# Resolve DynDNS hostname
+:local ipddns [:resolve $ddnsHost]
+
+# Compare and update if needed
+:if ($ipddns != $ipfresh || $ddnsLastIP != $ipfresh) do={
+
+    :log info ("DynDNS: Updating $ddnsHost to " . $ipfresh)
+
+    :local url ("http://" . $ddnsUser . ":" . $ddnsPass . "@members.dyndns.org/nic/update?hostname=" . $ddnsHost . "&myip=" . $ipfresh . "&wildcard=NOCHG&mx=NOCHG&backmx=NOCHG")
+
+    /tool fetch url=$url mode=http keep-result=no
+
+    :set ddnsLastIP $ipfresh
+    :log info "DynDNS: Update done."
+
+} else={
+    :log info ("DynDNS: No update needed. IP is still " . $ipfresh)
+}

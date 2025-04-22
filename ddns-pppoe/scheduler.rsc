@@ -1,0 +1,1 @@
+/system scheduler add name="DynDNS-PPPoE" interval=5m on-event="/system script run ddns-pppoe"

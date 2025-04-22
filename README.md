@@ -7,7 +7,7 @@ A collection of useful MikroTik RouterOS scripts created and maintained by **Tha
 
 - [`internet-monitor`](./internet-monitor) – Monitors internet connectivity and reboots or restarts interface on failure
 - [`auto-backup`](./auto-backup) – Automatically backs up MikroTik config and sends it via email
-
+- [`ddns-duckdns`](./ddns-duckdns) – Updates your public IP to DuckDNS dynamically
 
 ---
 

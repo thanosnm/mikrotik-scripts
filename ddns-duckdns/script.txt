@@ -1,0 +1,24 @@
+# ===============================================================
+# Dynamic DNS Updater for DuckDNS
+# Made & Powered by Thanos Pournaras
+# GitHub: https://thanosnm.github.io
+# ===============================================================
+
+:local duckDomain "thanospournaras"      # your DuckDNS subdomain
+:local duckToken "abc123abc123abc123abc123abc123ab"   # your DuckDNS token
+:local lastIP [/system script get [find name=ddns-duckdns] comment]
+:local currentIP [/ip cloud get public-address]
+
+:if ($currentIP != $lastIP) do={
+
+    :local url ("https://www.duckdns.org/update?domains=$duckDomain&token=$duckToken&ip=$currentIP")
+
+    /tool fetch url=$url keep-result=no
+
+    :log info "DuckDNS updated to $currentIP"
+
+    /system script set [find name=ddns-duckdns] comment=$currentIP
+
+} else={
+    :log info "DuckDNS - IP unchanged ($currentIP)"
+}

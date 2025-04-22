@@ -1,3 +1,12 @@
+# ===============================================================
+# MikroTik Internet Connectivity Monitor Script
+# Made & Powered by Thanos Pournaras
+# GitHub: https://thanosnm.github.io
+# ===============================================================
+
+/
+# Smart Internet Check & Recovery Script
+
 # Smart Internet Check + Recovery + Email + Log File
 
 :local wanInterface "pppoe-out1"

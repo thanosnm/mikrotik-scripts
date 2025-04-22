@@ -1,27 +1,45 @@
-# DynDNS Update Script (PPPoE)
+# DynDNS (PPPoE)
 
-Updates DynDNS hostname using the IP address assigned to a PPPoE interface.
+🇬🇧 *English below*
 
-## Features
+## 🌐 Ενημέρωση DynDNS μέσω PPPoE Interface
 
-- Pulls IP directly from a local interface (e.g. `pppoe-out1`)
-- Removes CIDR from the IP
-- Avoids file writes, stores only in global variable
-- Updates only when IP changes
+Αυτό το script ενημερώνει το DynDNS hostname χρησιμοποιώντας τη δημόσια IP από ένα PPPoE interface (π.χ. `pppoe-out1`).
 
-## Setup
+### ✅ Οδηγίες
 
-1. Replace:
-   - `ddnsUser`, `ddnsPass`, `ddnsHost`
-   - `theInterface` (e.g. `pppoe-out1`)
+1. Πήγαινε στο **System > Scripts** και δημιούργησε νέο script με όνομα `ddns-pppoe`
+2. Επικόλλησε το περιεχόμενο από το `script.txt`
+3. Δώσε permissions: `read`, `write`, `test`
+4. Πρόσθεσε scheduler από `scheduler.rsc` ή χειροκίνητα με:
 
-2. Add script + scheduler:
-
-```
-/system script add name=ddns-pppoe source=(paste script here)
-/system scheduler add name="DynDNS-PPPoE" interval=5m on-event="/system script run ddns-pppoe"
+```shell
+/system scheduler
+add name="DynDNS-PPPoE" interval=5m on-event="/system script run ddns-pppoe" policy=read,write,test
 ```
 
-Made by Thanos Pournaras  
-https://thanosnm.github.io  
-https://github.com/thanosnm
+---
+
+## 🌐 DynDNS Update via PPPoE Interface
+
+This script updates your DynDNS hostname using the public IP assigned to a PPPoE interface (e.g. `pppoe-out1`).
+
+### ✅ Installation
+
+1. Go to **System > Scripts** and create a new script named `ddns-pppoe`
+2. Paste the contents of `script.txt` into it
+3. Set permissions: `read`, `write`, `test`
+4. Add the scheduler using `scheduler.rsc` or manually with:
+
+```shell
+/system scheduler
+add name="DynDNS-PPPoE" interval=5m on-event="/system script run ddns-pppoe" policy=read,write,test
+```
+
+---
+
+## 👤 Author
+
+**Thanos Pournaras**  
+🔗 https://thanosnm.github.io  
+🛠️ https://github.com/thanosnm

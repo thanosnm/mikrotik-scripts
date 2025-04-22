@@ -43,3 +43,13 @@ add name="DynDNS-NAT" interval=5m on-event="/system script run ddns-nat-cloud" p
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io  
 🛠️ https://github.com/thanosnm
+
+
+---
+
+## ☕ Στήριξέ με / Support My Work
+
+🇬🇷 Είμαι δικτυάς και εκπαιδευτής με εμπειρία σε MikroTik, Ubiquiti και TP-Link. Αν βρήκες χρήσιμο το script, μπορείς να με στηρίξεις με έναν καφέ!  
+🇬🇧 I’m a network engineer & trainer focused on MikroTik, Ubiquiti and TP-Link networks. If you found this script useful, feel free to support me!
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

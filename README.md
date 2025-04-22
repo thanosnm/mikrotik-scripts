@@ -11,7 +11,7 @@ A collection of useful MikroTik RouterOS scripts created and maintained by **Tha
 - [`auto-backup`](./auto-backup) – Automatically backs up MikroTik config and sends it via email
 - [`ddns-duckdns`](./ddns-duckdns) – Updates your public IP to DuckDNS dynamically
 - [`device-logger`](./device-logger) – Logs new devices on the network, sends alerts for unknown MACs
-- [`speedtest-logger`](./speedtest-logger) – Runs speedtest and sends alert only if below threshold
+- [`admin-login-alert`](./admin-login-alert) – Sends email on any admin login with user/IP/method/time
 
 ---
 

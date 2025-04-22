@@ -1,0 +1,41 @@
+# ===============================================================
+# MikroTik Admin Login Alert Script
+# Made & Powered by Thanos Pournaras
+# GitHub: https://thanosnm.github.io
+# ===============================================================
+
+:global lastLoginCheckId
+
+# Initialize on first run
+:if ([:typeof $lastLoginCheckId] = "nothing") do={
+  :set lastLoginCheckId [/log find count-only]
+  :log info "[Admin Login Alert] Initialized log tracker"
+}
+
+# Find new login entries
+:local newLogEntries [/log find where message~"logged in from"]
+
+:foreach i in=$newLogEntries do={
+
+  :if ($i > $lastLoginCheckId) do={
+
+    :local time [/log get $i time]
+    :local msg [/log get $i message]
+    :local user [:pick $msg 5 [:find $msg " logged in"]]
+    :local from [:pick $msg ([:find $msg "from "] + 5) [:find $msg " via"]]
+    :local via [:pick $msg ([:find $msg "via "] + 4) [:len $msg]]
+
+    :local emailBody ("🚨 MikroTik Admin Login Detected
+
+User: $user
+From: $from
+Method: $via
+Time: $time")
+
+    :log warning "[Admin Login Alert] $user logged in from $from via $via at $time"
+
+    /tool e-mail send to="youremail@gmail.com" subject="🚨 MikroTik Login: $user via $via" body=$emailBody
+  }
+}
+
+:set lastLoginCheckId [/log find count-only]

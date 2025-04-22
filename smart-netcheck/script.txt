@@ -1,0 +1,35 @@
+# Smart Internet Check + Recovery + Email + Log File
+
+:local wanInterface "pppoe-out1"
+:local failed 0
+
+:foreach host in={"8.8.8.8";"1.1.1.1";"9.9.9.9"} do={
+    :if ([/ping address=$host count=2 interval=500ms] = 0) do={
+        :log warning ("[NetCheck] Failed: " . $host)
+        :set failed ($failed + 1)
+    } else={
+        :log info ("[NetCheck] OK: " . $host)
+    }
+}
+
+:if ($failed >= 2) do={
+
+    :log warning "[NetCheck] Internet DOWN – restarting PPPoE interface"
+
+    /interface pppoe-client disable [find name=$wanInterface]
+    :delay 5
+    /interface pppoe-client enable [find name=$wanInterface]
+
+    :local timestamp [/system clock get time]
+    :local date [/system clock get date]
+    :local message ("[NetCheck] Recovery: " . $date . " " . $timestamp . " | Interface: " . $wanInterface)
+
+    /tool e-mail send to="you@example.com" subject="⚠️ NetCheck: Internet Recovery" body=$message
+
+    :log warning $message
+
+    /file set [/file find name="netcheck-recovery.txt"] contents=( [/file get netcheck-recovery.txt contents] . $message . "\r\n")
+
+} else={
+    :log info "[NetCheck] Internet OK"
+}

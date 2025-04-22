@@ -1,0 +1,1 @@
+/system scheduler add name="smart-netcheck" interval=2m on-event="/system script run smart-netcheck" policy=read,write,test

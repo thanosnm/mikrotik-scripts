@@ -1,0 +1,34 @@
+# ===============================================================
+# DNS Hijack Detector (Multi-IP + Email + Log)
+# Made by Thanos Pournaras | https://thanosnm.github.io
+# ===============================================================
+
+:local domainList {"one.one.one.one"; "resolver1.opendns.com"; "dns.google"}
+:local expectedList {
+    {"1.1.1.1"; "1.0.0.1"};
+    {"208.67.222.222"};
+    {"8.8.8.8"; "8.8.4.4"}
+}
+
+:for i from=0 to=([:len $domainList] - 1) do={
+
+    :local d [:pick $domainList $i]
+    :local expected [:pick $expectedList $i]
+    :local resolved [:resolve $d]
+    :local found false
+
+    :foreach v in=$expected do={
+        :if ($resolved = $v) do={ :set found true }
+    }
+
+    :if (!$found) do={
+
+        :local msg ("[DNS Hijack Detected]\nDomain: " . $d . "\nResolved to: " . $resolved . "\nExpected: " . $expected)
+
+        :log warning $msg
+        /tool e-mail send to="you@example.com" subject="[DNS Hijack] $d" body=$msg
+
+    } else={
+        :log info ("[DNS OK] " . $d . " resolved to " . $resolved)
+    }
+}

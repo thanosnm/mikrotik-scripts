@@ -1,0 +1,1 @@
+/system scheduler add name="dnsHijack" interval=10m on-event="/system script run dns-hijack-detector" policy=read,write,test

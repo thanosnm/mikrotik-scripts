@@ -1,42 +1,84 @@
-# Device Logger Script
+# 📦 Device Connection Logger
 
-🇬🇧 *English below*
+## 🇬🇧 English
 
-## 📡 Καταγραφή Νέων Συσκευών (MikroTik)
+### 📝 Description
 
-Αυτό το script παρακολουθεί τις συνδεδεμένες συσκευές στο δίκτυο (μέσω ARP), και σε ειδοποιεί όταν εμφανιστεί νέα ή άγνωστη συσκευή.
+Logs new device MACs and IPs appearing on your LAN and optionally sends email alerts.
 
-### ✅ Λειτουργίες
-- Καταγραφή όλων των MAC/IP από το ARP table
-- Αν βρεθεί νέα συσκευή (που δεν είναι στο ignore list), στέλνει email
-- Δεν στέλνει τίποτα αν δεν αλλάξει τίποτα (έξυπνο logging)
-- Η λίστα γνωστών συσκευών αποθηκεύεται αυτόματα
+### ⚙️ Configuration
+
+Before running the script, make sure to configure these values inside the script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Ensure that email settings are properly configured in `/tool e-mail`.
+
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `device-logger`
+3. Paste the contents of `device-logger.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
+
+```rsc
+/system scheduler
+add name="device-logger" interval=1m on-event="/system script run device-logger" policy=read,write,test
+```
 
 ---
 
-## 📡 Active Device Logger (MikroTik)
+## 🇬🇷 Ελληνικά
 
-This script monitors the network's connected devices and alerts you when a new or unknown device appears.
+### 📝 Περιγραφή
 
-### ✅ Features
-- Scans ARP table (MAC/IP/interface)
-- Sends email for new devices (not in ignore list)
-- Silent when no changes = no spam
-- Keeps memory of previously seen devices
+Καταγράφει νέες MAC και IP διευθύνσεις συσκευών που συνδέονται στο LAN και προαιρετικά στέλνει email.
 
-### ⚙️ Setup
+### ⚙️ Ρυθμίσεις
 
-1. Paste the contents of `script.txt` into a MikroTik script named `device-logger`
-2. Update your email address and ignoreList MACs
-3. Add scheduler using `scheduler.rsc` or manually:
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
 
-```shell
-/system scheduler
-add name="device-logger" interval=5m on-event="/system script run device-logger" policy=read,write,test
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
 ```
 
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
-## 👤 Author
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `device-logger`
+3. Επικόλλησε το περιεχόμενο του `device-logger.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
+/system scheduler
+add name="device-logger" interval=1m on-event="/system script run device-logger" policy=read,write,test
+```
+
+---
+
+## 👤 Author / Δημιουργός
 
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io
+
+## ☕ Support My Work / Στήριξέ με
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

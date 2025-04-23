@@ -1,57 +1,84 @@
-# Auto Backup Script
+# 📦 Auto Backup Script
 
-🇬🇧 *English below*
+## 🇬🇧 English
 
-## 💾 Αυτόματο Backup & Αποστολή με Email (MikroTik)
+### 📝 Description
 
-Το script κάνει αυτόματα export και backup της διαμόρφωσης του router κάθε μέρα και στέλνει τα αρχεία στο email σου.
+This MikroTik script automates the process of backing up your router’s configuration and sending it via email. It's designed to run daily and keep your backups up-to-date.
 
-### ✅ Οδηγίες
+### ⚙️ Configuration
 
-1. Πήγαινε στο **System > Scripts** και φτιάξε νέο script `auto-backup`
-2. Επικόλλησε το περιεχόμενο από το `script.txt`
-3. Ρύθμισε SMTP στο `/tool e-mail` (δες παρακάτω)
-4. Πρόσθεσε scheduler ή χρησιμοποίησε `scheduler.rsc`
+Before running the script, make sure to configure these values inside the script:
 
-### ✉️ Απαραίτητες Ρυθμίσεις για Email
-
-```mikrotik
-/tool e-mail
-set address=smtp.gmail.com port=587 start-tls=yes from=youremail@gmail.com user=youremail@gmail.com password=yourpassword
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
 ```
 
-Δοκιμή:
-```mikrotik
-/tool e-mail send to=youremail@gmail.com subject="Test Email" body="MikroTik Email Test"
+Ensure that email settings are properly configured in `/tool e-mail`.
+
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `auto-backup`
+3. Paste the contents of `auto-backup.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
+
+```rsc
+/system scheduler
+add name="auto-backup" interval=1d on-event="/system script run auto-backup" policy=read,write,test
 ```
 
 ---
 
-## 💾 Auto Backup & Email (MikroTik)
+## 🇬🇷 Ελληνικά
 
-This script automatically exports the router config daily and sends both `.backup` and `.rsc` files via email.
+### 📝 Περιγραφή
 
-### ✅ Installation
+Αυτό το script για MikroTik αυτοματοποιεί τη διαδικασία δημιουργίας αντιγράφου ασφαλείας των ρυθμίσεων του router σας και το αποστέλλει μέσω email. Είναι σχεδιασμένο για καθημερινή εκτέλεση.
 
-1. Go to **System > Scripts** and create a script called `auto-backup`
-2. Paste contents of `script.txt`
-3. Set up email SMTP in `/tool e-mail` (see below)
-4. Add scheduler using `scheduler.rsc` or manually
+### ⚙️ Ρυθμίσεις
 
-### ✉️ Email Configuration Required
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
 
-```mikrotik
-/tool e-mail
-set address=smtp.gmail.com port=587 start-tls=yes from=youremail@gmail.com user=youremail@gmail.com password=yourpassword
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
 ```
 
-Send test:
-```mikrotik
-/tool e-mail send to=youremail@gmail.com subject="Test Email" body="MikroTik Email Test"
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
+
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `auto-backup`
+3. Επικόλλησε το περιεχόμενο του `auto-backup.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
+/system scheduler
+add name="auto-backup" interval=1d on-event="/system script run auto-backup" policy=read,write,test
 ```
 
-## 👤 Author
+---
+
+## 👤 Author / Δημιουργός
 
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io
 
+## ☕ Support My Work / Στήριξέ με
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

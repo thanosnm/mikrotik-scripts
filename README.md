@@ -1,39 +1,84 @@
-# MikroTik Scripts
+# 📦 Auto Backup Script
 
-A collection of useful MikroTik RouterOS scripts created and maintained by **Thanos Pournaras**  
+## 🇬🇧 English
+
+### 📝 Description
+
+This MikroTik script automates the process of backing up your router’s configuration and sending it via email. It's designed to run daily and keep your backups up-to-date.
+
+### ⚙️ Configuration
+
+Before running the script, make sure to configure these values inside the script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Ensure that email settings are properly configured in `/tool e-mail`.
+
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `auto-backup`
+3. Paste the contents of `auto-backup.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
+
+```rsc
+/system scheduler
+add name="auto-backup" interval=1d on-event="/system script run auto-backup" policy=read,write,test
+```
+
+---
+
+## 🇬🇷 Ελληνικά
+
+### 📝 Περιγραφή
+
+Αυτό το script για MikroTik αυτοματοποιεί τη διαδικασία δημιουργίας αντιγράφου ασφαλείας των ρυθμίσεων του router σας και το αποστέλλει μέσω email. Είναι σχεδιασμένο για καθημερινή εκτέλεση.
+
+### ⚙️ Ρυθμίσεις
+
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
+
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `auto-backup`
+3. Επικόλλησε το περιεχόμενο του `auto-backup.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
+/system scheduler
+add name="auto-backup" interval=1d on-event="/system script run auto-backup" policy=read,write,test
+```
+
+---
+
+## 👤 Author / Δημιουργός
+
+**Thanos Pournaras**  
 🔗 https://thanosnm.github.io
 
-🌐 **My Projects & Scripts Hub:** [https://thanosnm.github.io](https://thanosnm.github.io)
-
-## Available Scripts
-
-- [`internet-monitor`](./internet-monitor) – Monitors internet connectivity and reboots or restarts interface on failure
-- [`auto-backup`](./auto-backup) – Automatically backs up MikroTik config and sends it via email
-- [`ddns-duckdns`](./ddns-duckdns) – Updates your public IP to DuckDNS dynamically
-- [`device-logger`](./device-logger) – Logs new devices on the network, sends alerts for unknown MACs
-
----
-
-## ⚠️ Νομική Σημείωση / Legal Disclaimer
-
-🇬🇷 Το περιεχόμενο παρέχεται για εκπαιδευτικούς και νομικά επιτρεπτούς σκοπούς.  
-Η ευθύνη για τη χρήση και συμμόρφωση με τη νομοθεσία φέρει αποκλειστικά ο χρήστης.
-
-🇬🇧 This content is provided for educational and legally permitted use only.  
-The end user is solely responsible for lawful and compliant implementation.
-
----
-
-## 📬 Συνεισφορά / Contribute
-
-🇬🇷 Έχεις πρόταση, domain ή IP για προσθήκη/αφαίρεση; Κάνε ένα pull request ή άνοιξε issue.  
-🇬🇧 Have a suggestion, domain, or IP to add/remove? Feel free to open an issue or submit a pull request.
-
----
-
-## ☕ Στήριξέ με / Support My Work
-
-🇬🇷 Είμαι δικτυάς και εκπαιδευτής με εμπειρία σε MikroTik, Ubiquiti και TP-Link. Αν βρήκες χρήσιμη τη δουλειά μου, μπορείς να με στηρίξεις με έναν καφέ!  
-🇬🇧 I’m a network engineer & trainer focused on MikroTik, Ubiquiti and TP-Link networks. If you find my work useful, feel free to support me!
+## ☕ Support My Work / Στήριξέ με
 
 [![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

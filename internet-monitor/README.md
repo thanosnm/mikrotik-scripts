@@ -1,45 +1,84 @@
-# Internet Monitor
+# 📦 Internet Connectivity Monitor
 
-🇬🇧 *English below*
+## 🇬🇧 English
 
-## 📡 Παρακολούθηση σύνδεσης Internet (MikroTik RouterOS)
+### 📝 Description
 
-Αυτό το script ελέγχει αν υπάρχει σύνδεση στο internet (μέσω ping σε 8.8.8.8) και αν αποτύχει επανεκκινεί την WAN θύρα (`ether1`).
+Monitors internet access via ping and restarts the WAN interface if no response is received.
 
-### ✅ Οδηγίες
+### ⚙️ Configuration
 
-1. Πήγαινε στο **System > Scripts** και φτιάξε ένα νέο script με όνομα `internet-monitor`
-2. Κάνε επικόλληση το περιεχόμενο από το `script.txt`
-3. Δώσε permissions: `read`, `write`, `test`
-4. Πρόσθεσε scheduler από το `scheduler.rsc` ή χειροκίνητα με:
+Before running the script, make sure to configure these values inside the script:
 
-```shell
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Ensure that email settings are properly configured in `/tool e-mail`.
+
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `internet-monitor`
+3. Paste the contents of `internet-monitor.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
+
+```rsc
 /system scheduler
-add name="internetCheck" interval=15s on-event="/system script run internet-monitor" policy=read,write,test
+add name="internet-monitor" interval=15s on-event="/system script run internet-monitor" policy=read,write,test
 ```
 
 ---
 
-## 📡 Internet Connectivity Monitor (MikroTik RouterOS)
+## 🇬🇷 Ελληνικά
 
-This script checks for internet access (via ping to 8.8.8.8), and if it fails, it restarts the WAN interface (`ether1`).
+### 📝 Περιγραφή
 
-### ✅ Installation
+Παρακολουθεί τη σύνδεση στο διαδίκτυο με ping και κάνει επανεκκίνηση της WAN εάν δεν υπάρχει απάντηση.
 
-1. Go to **System > Scripts** and create a new script named `internet-monitor`
-2. Paste the contents of `script.txt` into it
-3. Set permissions: `read`, `write`, `test`
-4. Add the scheduler using `scheduler.rsc` or manually:
+### ⚙️ Ρυθμίσεις
 
-```shell
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
+
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `internet-monitor`
+3. Επικόλλησε το περιεχόμενο του `internet-monitor.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
 /system scheduler
-add name="internetCheck" interval=15s on-event="/system script run internet-monitor" policy=read,write,test
+add name="internet-monitor" interval=15s on-event="/system script run internet-monitor" policy=read,write,test
 ```
 
 ---
 
-
-## 👤 Author
+## 👤 Author / Δημιουργός
 
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io
+
+## ☕ Support My Work / Στήριξέ με
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

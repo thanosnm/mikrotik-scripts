@@ -1,93 +1,84 @@
-# 🌐 MikroTik DHCP Failover Script
+# 📦 DHCP WAN Failover
 
-🇬🇷 *Για Ελληνικά δείτε παρακάτω | English above*
+## 🇬🇧 English
 
----
+### 📝 Description
 
-## ⚙️ Overview
+Switches to backup WAN if the primary goes offline, then reverts when primary is restored.
 
-This MikroTik script automatically switches internet connection from primary (ether1) to backup (ether2) interface when the primary goes offline.
+### ⚙️ Configuration
 
----
-
-## 🔧 Configuration
-
-Edit the following lines at the top of the script:
+Before running the script, make sure to configure these values inside the script:
 
 ```rsc
-:local testIP1 "1.1.1.1"
-:local testIP2 "9.9.9.9"
-:local pingCount 3
-:local emailTo "you@example.com"
-:local emailSubject "FAILOVER Triggered"
-:local emailBody "ether1 down, switching to backup"
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
 ```
 
----
+Ensure that email settings are properly configured in `/tool e-mail`.
 
-## ⏱ Scheduler Setup
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `failover-dhcp-wan`
+3. Paste the contents of `failover-dhcp-wan.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
 
 ```rsc
 /system scheduler
-add name="Failover Check" interval=1m on-event="/system script run failover-script" policy=read,write,test
+add name="failover-dhcp-wan" interval=1m on-event="/system script run failover-dhcp-wan" policy=read,write,test
 ```
 
 ---
 
-## 👤 Author
+## 🇬🇷 Ελληνικά
+
+### 📝 Περιγραφή
+
+Αλλάζει σε εφεδρικό WAN αν πέσει το κύριο και επιστρέφει όταν αποκατασταθεί.
+
+### ⚙️ Ρυθμίσεις
+
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
+
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `failover-dhcp-wan`
+3. Επικόλλησε το περιεχόμενο του `failover-dhcp-wan.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
+/system scheduler
+add name="failover-dhcp-wan" interval=1m on-event="/system script run failover-dhcp-wan" policy=read,write,test
+```
+
+---
+
+## 👤 Author / Δημιουργός
 
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io
 
----
-
-## ☕ Support My Work
-
-[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)
-
----
-
-# 🌐 Script Αυτόματης Εναλλαγής Internet (DHCP WAN)
-
-🇬🇷 Αυτό το script ελέγχει τη σύνδεση στο διαδίκτυο μέσω ether1 και αν δεν υπάρχει απάντηση από τις IP ελέγχου, μεταφέρει την πύλη στο ether2.
-
----
-
-## 🔧 Ρυθμίσεις
-
-Μπορείς να αλλάξεις τα εξής στο πάνω μέρος του script:
-
-```rsc
-:local testIP1 "1.1.1.1"
-:local testIP2 "9.9.9.9"
-:local pingCount 3
-:local emailTo "you@example.com"
-:local emailSubject "FAILOVER Triggered"
-:local emailBody "ether1 down, switching to backup"
-```
-
----
-
-## ⏱ Scheduler
-
-Για να εκτελείται κάθε 1 λεπτό:
-
-```rsc
-/system scheduler
-add name="Failover Check" interval=1m on-event="/system script run failover-script" policy=read,write,test
-```
-
----
-
-## 👤 Δημιουργός
-
-**Θάνος Πουρνάρας**  
-🔗 https://thanosnm.github.io
-
----
-
-## ☕ Στήριξέ με
-
-Αν σου άρεσε η δουλειά μου:
+## ☕ Support My Work / Στήριξέ με
 
 [![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

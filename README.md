@@ -1,84 +1,111 @@
-# 📦 Auto Backup Script
+# 📱 MikroTik Scripts Collection
 
-## 🇬🇧 English
+![Stars](https://img.shields.io/github/stars/thanosnm/mikrotik-scripts?style=social)
+![Forks](https://img.shields.io/github/forks/thanosnm/mikrotik-scripts?style=social)
+![Last Commit](https://img.shields.io/github/last-commit/thanosnm/mikrotik-scripts)
+![License](https://img.shields.io/github/license/thanosnm/mikrotik-scripts)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Language](https://img.shields.io/badge/language-MikroTik%20Script-blue)
 
-### 📝 Description
+---
 
-This MikroTik script automates the process of backing up your router’s configuration and sending it via email. It's designed to run daily and keep your backups up-to-date.
+🇬🇷 *Για ελληνικά, δείτε παρακάτω*  
+🇬🇧 *English version below*
 
-### ⚙️ Configuration
+---
 
-Before running the script, make sure to configure these values inside the script:
+## 🧠 About
 
-```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
-```
+A collection of useful and production-tested scripts for **MikroTik RouterOS** written by **Thanos Pournaras**.  
+Includes monitoring, failover, DDNS, automation, backups, and more — all with **bilingual documentation** and ready for GitHub Pages.
 
-Ensure that email settings are properly configured in `/tool e-mail`.
+---
 
-### 📥 Installation
+## 📂 Script Categories
 
-1. Go to **System > Scripts**
-2. Create a new script named `auto-backup`
-3. Paste the contents of `auto-backup.rsc`
-4. Set permissions: `read`, `write`, `policy`, `test`
+### 🚀 Monitoring
+- [Internet Monitor](./internet-monitor)
+- [Smart NetCheck](./smart-netcheck)
+- [Device Logger](./device-logger)
 
-### ⏱️ Scheduler Setup
+### 🌐 DDNS
+- [DuckDNS](./ddns-duckdns)
+- [PPPoE](./ddns-pppoe)
+- [NAT + Cloud IP](./ddns-nat-cloud)
 
-To run the script every day:
+### 📆 Backups
+- [Auto Backup (Email)](./auto-backup)
+- [FTP Backup + Export](./ftp-backup-export)
 
-```rsc
-/system scheduler
-add name="auto-backup" interval=1d on-event="/system script run auto-backup" policy=read,write,test
-```
+### 🔄 Failover
+- [DHCP WAN Failover](./failover-dhcp-wan)
+
+### 🛡 Security
+- [DNS Hijack Detection](./dns-hijack-full)
+
+---
+
+## 🛠 Usage
+
+1. Choose a script and read its [README.md](./internet-monitor/README.md)  
+2. Paste the `.rsc` script into **System > Scripts** on your MikroTik device  
+3. Set the correct permissions and add a scheduler  
+4. Modify the variables at the top as needed
+
+---
+
+## 🗅 Online Version
+
+🌐 [View on GitHub Pages →](https://thanosnm.github.io)
+
+---
+
+## ☕ Support My Work
+
+If you find my work helpful, feel free to support me:
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)
 
 ---
 
 ## 🇬🇷 Ελληνικά
 
-### 📝 Περιγραφή
-
-Αυτό το script για MikroTik αυτοματοποιεί τη διαδικασία δημιουργίας αντιγράφου ασφαλείας των ρυθμίσεων του router σας και το αποστέλλει μέσω email. Είναι σχεδιασμένο για καθημερινή εκτέλεση.
-
-### ⚙️ Ρυθμίσεις
-
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
-
-```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
-```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
-
-### 📥 Εγκατάσταση
-
-1. Πήγαινε στο **System > Scripts**
-2. Δημιούργησε νέο script με όνομα `auto-backup`
-3. Επικόλλησε το περιεχόμενο του `auto-backup.rsc`
-4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
-
-### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
-
-```rsc
-/system scheduler
-add name="auto-backup" interval=1d on-event="/system script run auto-backup" policy=read,write,test
-```
+Συλλογή από χρήσιμα scripts για **MikroTik RouterOS**, φτιαγμένα από τον **Θάνο Πουρνάρα**.  
+Περιλαμβάνει monitoring, backup, failover, ddns, αυτοματισμούς — όλα με **δίγλωσσο documentation**.
 
 ---
 
-## 👤 Author / Δημιουργός
+### 📁 Κατηγορίες
 
-**Thanos Pournaras**  
-🔗 https://thanosnm.github.io
+#### Παρακολούθηση
+- [Internet Monitor](./internet-monitor)
+- [Smart NetCheck](./smart-netcheck)
+- [Καταγραφή συσκευών](./device-logger)
 
-## ☕ Support My Work / Στήριξέ με
+#### DDNS
+- [DuckDNS](./ddns-duckdns)
+- [PPPoE](./ddns-pppoe)
+- [NAT με Cloud IP](./ddns-nat-cloud)
 
-[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)
+#### Αντίγραφα Ασφαλείας
+- [Backup με email](./auto-backup)
+- [Backup + export σε FTP](./ftp-backup-export)
+
+#### Εναλλαγή Σύνδεσης (Failover)
+- [DHCP WAN Failover](./failover-dhcp-wan)
+
+#### Ασφάλεια
+- [Ανίχνευση DNS Hijack](./dns-hijack-full)
+
+---
+
+### ✅ Οδηγίες
+
+1. Διάλεξε script και δείτε το [README.md](./internet-monitor/README.md)  
+2. Αντιγράψτε το `.rsc` σε **System > Scripts**  
+3. Ρύθμισε permissions και scheduler  
+4. Τροποποίησε τις μεταβλητές στην κορυφή
+
+---
+
+📬 Για πρόταση ή νέο scripts: [Άνοιξε issue ή Pull Request](https://github.com/thanosnm/mikrotik-scripts/issues)

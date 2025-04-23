@@ -4,31 +4,29 @@
 
 ### 📝 Description
 
-Switches to backup WAN if the primary goes offline, then reverts when primary is restored.
+Monitors the primary WAN (ether1) and switches to backup WAN (ether2) if it fails. Reverts automatically when primary is restored.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local testIP1 "1.1.1.1"
+:local testIP2 "9.9.9.9"
+:local pingCount 3
+:local emailTo "you@example.com"
+:local emailSubject "FAILOVER Triggered"
+:local emailBody "ether1 down, switching to backup"
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `failover-dhcp-wan`
+2. Create a script named `failover-dhcp-wan`
 3. Paste the contents of `failover-dhcp-wan.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +39,20 @@ add name="failover-dhcp-wan" interval=1m on-event="/system script run failover-d
 
 ### 📝 Περιγραφή
 
-Αλλάζει σε εφεδρικό WAN αν πέσει το κύριο και επιστρέφει όταν αποκατασταθεί.
+Παρακολουθεί το κύριο WAN (ether1) και αν αποτύχει, γυρνά σε εφεδρικό (ether2). Επιστρέφει όταν αποκατασταθεί το κύριο.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local testIP1 "1.1.1.1"
+:local testIP2 "9.9.9.9"
+:local pingCount 3
+:local emailTo "you@example.com"
+:local emailSubject "FAILOVER Triggered"
+:local emailBody "ether1 down, switching to backup"
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +62,6 @@ add name="failover-dhcp-wan" interval=1m on-event="/system script run failover-d
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

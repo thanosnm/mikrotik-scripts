@@ -4,31 +4,26 @@
 
 ### 📝 Description
 
-This script updates your dynamic IP address on DuckDNS using MikroTik scripting. Requires an API token and hostname from DuckDNS.
+Updates your dynamic IP on DuckDNS using a custom script. Requires DuckDNS token and subdomain.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:global ddnsuser "your-subdomain"
+:global ddnspass "your-duckdns-token"
+:global ddnshost "your-subdomain.duckdns.org"
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `ddns-duckdns`
+2. Create a script named `ddns-duckdns`
 3. Paste the contents of `ddns-duckdns.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +36,17 @@ add name="ddns-duckdns" interval=5m on-event="/system script run ddns-duckdns" p
 
 ### 📝 Περιγραφή
 
-Αυτό το script ενημερώνει τη δυναμική IP σας στο DuckDNS με χρήση scripting του MikroTik. Απαιτεί token API και hostname από το DuckDNS.
+Ενημερώνει τη δυναμική IP σας στο DuckDNS με script. Απαιτεί token και subdomain.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:global ddnsuser "your-subdomain"
+:global ddnspass "your-duckdns-token"
+:global ddnshost "your-subdomain.duckdns.org"
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +56,6 @@ add name="ddns-duckdns" interval=5m on-event="/system script run ddns-duckdns" p
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

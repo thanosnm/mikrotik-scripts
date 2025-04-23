@@ -1,48 +1,84 @@
-# DNS Hijack Detector (Multi-IP + Email + Log)
+# 📦 DNS Hijack Detection
 
-🇬🇷 *English below*
+## 🇬🇧 English
 
-## 🧠 Ανίχνευση DNS Hijack με ειδοποίηση (log + email)
+### 📝 Description
 
-Ελέγχει γνωστά domains και συγκρίνει με πολλές έγκυρες IP. Αν βρεθεί λάθος, στέλνει email και γράφει log warning.
+Checks if DNS responses resolve to unexpected IPs and alerts in case of hijack attempts.
 
-### ✅ Οδηγίες
+### ⚙️ Configuration
 
-1. System > Scripts → νέο script `dns-hijack-detector`
-2. Επικόλληση από `script.txt`
-3. Δώσε permissions: read, write, test
-4. Ρύθμισε το `/tool e-mail` για αποστολή
-5. Πρόσθεσε scheduler:
+Before running the script, make sure to configure these values inside the script:
 
-```shell
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Ensure that email settings are properly configured in `/tool e-mail`.
+
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `dns-hijack-full`
+3. Paste the contents of `dns-hijack-full.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
+
+```rsc
 /system scheduler
-add name="dnsHijack" interval=10m on-event="/system script run dns-hijack-detector" policy=read,write,test
+add name="dns-hijack-full" interval=5m on-event="/system script run dns-hijack-full" policy=read,write,test
 ```
 
 ---
 
-## 🧠 DNS Hijack Detection (with multi-IP and email)
+## 🇬🇷 Ελληνικά
 
-Checks known domains against multiple expected IPs. If the resolved result is not in the list, logs a warning and sends an email alert.
+### 📝 Περιγραφή
 
-### ✅ Setup
+Ελέγχει αν οι απαντήσεις DNS οδηγούν σε μη αναμενόμενες IP και ειδοποιεί σε πιθανό DNS hijack.
 
-1. Go to System > Scripts → add `dns-hijack-detector`
-2. Paste `script.txt` into it
-3. Set permissions: read, write, test
-4. Configure `/tool e-mail` SMTP
-5. Add scheduler:
+### ⚙️ Ρυθμίσεις
 
-```shell
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
+
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `dns-hijack-full`
+3. Επικόλλησε το περιεχόμενο του `dns-hijack-full.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
 /system scheduler
-add name="dnsHijack" interval=10m on-event="/system script run dns-hijack-detector" policy=read,write,test
+add name="dns-hijack-full" interval=5m on-event="/system script run dns-hijack-full" policy=read,write,test
 ```
 
 ---
 
-
-## 👤 Author
+## 👤 Author / Δημιουργός
 
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io
 
+## ☕ Support My Work / Στήριξέ με
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

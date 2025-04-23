@@ -1,49 +1,84 @@
-# Smart Internet Recovery
+# 📦 Smart Network Check
 
-🇬🇷 *English below*
+## 🇬🇧 English
 
-## 🔁 Έξυπνη Ανίχνευση & Ανάκτηση Σύνδεσης Internet
+### 📝 Description
 
-Ελέγχει πολλαπλά DNS (8.8.8.8, 1.1.1.1, 9.9.9.9).  
-Αν αποτύχουν 2 ή περισσότεροι → γίνεται αυτόματη επανεκκίνηση του `pppoe-out1`.  
-Καταγράφει log, στέλνει email και κρατάει αρχείο ιστορικού.
+Performs multi-layer internet checks and logs failures or restarts WAN as needed.
 
-### ✅ Οδηγίες
+### ⚙️ Configuration
 
-1. Επικόλληση `script.txt` σε System > Scripts
-2. Δημιούργησε scheduler:
+Before running the script, make sure to configure these values inside the script:
 
-```shell
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Ensure that email settings are properly configured in `/tool e-mail`.
+
+### 📥 Installation
+
+1. Go to **System > Scripts**
+2. Create a new script named `smart-netcheck`
+3. Paste the contents of `smart-netcheck.rsc`
+4. Set permissions: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler Setup
+
+To run the script every day:
+
+```rsc
 /system scheduler
-add name="smart-netcheck" interval=2m on-event="/system script run smart-netcheck" policy=read,write,test
+add name="smart-netcheck" interval=1m on-event="/system script run smart-netcheck" policy=read,write,test
 ```
 
 ---
 
-## 🔁 Smart Internet Outage Detection & Recovery
+## 🇬🇷 Ελληνικά
 
-Pings 3 IPs (8.8.8.8, 1.1.1.1, 9.9.9.9).  
-If 2 or more fail → restarts `pppoe-out1`, sends alert and logs recovery event to file.
+### 📝 Περιγραφή
 
-### ✅ Instructions
+Εκτελεί πολλαπλούς ελέγχους συνδεσιμότητας και καταγράφει ή επανεκκινεί τη WAN εφόσον χρειαστεί.
 
-1. Paste `script.txt` into System > Scripts
-2. Add scheduler:
+### ⚙️ Ρυθμίσεις
 
-```shell
+Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+
+```rsc
+:local emailTo "your@email.com"
+:local backupName "router-backup"
+/system backup save name=$backupName
+/export file=$backupName
+```
+
+Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
+
+### 📥 Εγκατάσταση
+
+1. Πήγαινε στο **System > Scripts**
+2. Δημιούργησε νέο script με όνομα `smart-netcheck`
+3. Επικόλλησε το περιεχόμενο του `smart-netcheck.rsc`
+4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
+
+### ⏱️ Scheduler
+
+Για να τρέχει κάθε μέρα:
+
+```rsc
 /system scheduler
-add name="smart-netcheck" interval=2m on-event="/system script run smart-netcheck" policy=read,write,test
+add name="smart-netcheck" interval=1m on-event="/system script run smart-netcheck" policy=read,write,test
 ```
 
 ---
 
-## 📁 Recovery Log
-
-Events are saved in: **Files > netcheck-recovery.txt**
-
----
-
-## 👤 Author
+## 👤 Author / Δημιουργός
 
 **Thanos Pournaras**  
 🔗 https://thanosnm.github.io
+
+## ☕ Support My Work / Στήριξέ με
+
+[![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=pournarasaa&button_colour=FFDD00&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/pournarasaa)

@@ -4,31 +4,27 @@
 
 ### 📝 Description
 
-Detects your public IP address behind NAT using MikroTik's IP Cloud and updates your DDNS provider accordingly.
+Detects your public IP behind NAT using MikroTik IP Cloud and updates DDNS accordingly.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:global ddnsuser "youruser"
+:global ddnspass "yourpassword"
+:global ddnshost "hostname.ddns.net"
+:global theinterface "ether1"
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `ddns-nat-cloud`
+2. Create a script named `ddns-nat-cloud`
 3. Paste the contents of `ddns-nat-cloud.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +37,18 @@ add name="ddns-nat-cloud" interval=5m on-event="/system script run ddns-nat-clou
 
 ### 📝 Περιγραφή
 
-Ανιχνεύει τη δημόσια IP σας πίσω από NAT μέσω του MikroTik IP Cloud και ενημερώνει τον πάροχο DDNS.
+Ανιχνεύει τη δημόσια IP πίσω από NAT μέσω του IP Cloud και ενημερώνει το DDNS.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:global ddnsuser "youruser"
+:global ddnspass "yourpassword"
+:global ddnshost "hostname.ddns.net"
+:global theinterface "ether1"
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +58,6 @@ add name="ddns-nat-cloud" interval=5m on-event="/system script run ddns-nat-clou
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

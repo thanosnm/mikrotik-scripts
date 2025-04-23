@@ -4,31 +4,26 @@
 
 ### 📝 Description
 
-Monitors internet access via ping and restarts the WAN interface if no response is received.
+Pings 8.8.8.8 and restarts the WAN interface if no internet connectivity is detected.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local wanInterface "ether1"
+:local pingTarget "8.8.8.8"
+:local retryCount 3
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `internet-monitor`
+2. Create a script named `internet-monitor`
 3. Paste the contents of `internet-monitor.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +36,17 @@ add name="internet-monitor" interval=15s on-event="/system script run internet-m
 
 ### 📝 Περιγραφή
 
-Παρακολουθεί τη σύνδεση στο διαδίκτυο με ping και κάνει επανεκκίνηση της WAN εάν δεν υπάρχει απάντηση.
+Κάνει ping στη διεύθυνση 8.8.8.8 και επανεκκινεί την WAN αν δεν υπάρχει σύνδεση στο διαδίκτυο.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local wanInterface "ether1"
+:local pingTarget "8.8.8.8"
+:local retryCount 3
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +56,6 @@ add name="internet-monitor" interval=15s on-event="/system script run internet-m
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

@@ -4,31 +4,26 @@
 
 ### 📝 Description
 
-Checks if DNS responses resolve to unexpected IPs and alerts in case of hijack attempts.
+Compares DNS resolutions with expected IPs and alerts if something suspicious is detected.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local domains {"example.com";"one.one.one.one"}
+:local expectedIPs {"93.184.216.34";"1.1.1.1"}
+:local emailTo "you@example.com"
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `dns-hijack-full`
+2. Create a script named `dns-hijack-full`
 3. Paste the contents of `dns-hijack-full.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +36,17 @@ add name="dns-hijack-full" interval=5m on-event="/system script run dns-hijack-f
 
 ### 📝 Περιγραφή
 
-Ελέγχει αν οι απαντήσεις DNS οδηγούν σε μη αναμενόμενες IP και ειδοποιεί σε πιθανό DNS hijack.
+Συγκρίνει αποτελέσματα DNS με αναμενόμενες IP και ειδοποιεί αν υπάρξει απόκλιση.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local domains {"example.com";"one.one.one.one"}
+:local expectedIPs {"93.184.216.34";"1.1.1.1"}
+:local emailTo "you@example.com"
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +56,6 @@ add name="dns-hijack-full" interval=5m on-event="/system script run dns-hijack-f
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

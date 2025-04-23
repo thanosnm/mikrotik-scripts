@@ -4,31 +4,27 @@
 
 ### 📝 Description
 
-Uses your PPPoE interface IP to update your DDNS provider. Ideal for ISPs assigning public IPs over PPPoE.
+Uses the IP from PPPoE interface to update your DDNS provider.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:global ddnsuser "youruser"
+:global ddnspass "yourpassword"
+:global ddnshost "hostname.ddns.net"
+:global theinterface "pppoe-out1"
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `ddns-pppoe`
+2. Create a script named `ddns-pppoe`
 3. Paste the contents of `ddns-pppoe.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +37,18 @@ add name="ddns-pppoe" interval=5m on-event="/system script run ddns-pppoe" polic
 
 ### 📝 Περιγραφή
 
-Χρησιμοποιεί την IP του interface PPPoE για να ενημερώσει τον πάροχο DDNS. Ιδανικό για ISPs που δίνουν δημόσιες IP μέσω PPPoE.
+Χρησιμοποιεί την IP του PPPoE interface για να ενημερώσει το DDNS.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:global ddnsuser "youruser"
+:global ddnspass "yourpassword"
+:global ddnshost "hostname.ddns.net"
+:global theinterface "pppoe-out1"
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +58,6 @@ add name="ddns-pppoe" interval=5m on-event="/system script run ddns-pppoe" polic
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

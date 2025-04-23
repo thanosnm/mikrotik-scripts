@@ -4,31 +4,26 @@
 
 ### 📝 Description
 
-Logs new device MACs and IPs appearing on your LAN and optionally sends email alerts.
+Logs new MAC addresses and optionally sends an email alert when new devices connect.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local emailTo "you@example.com"
+:local emailSubject "New device detected"
+:local emailBody "A new MAC address has appeared on your network."
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `device-logger`
+2. Create a script named `device-logger`
 3. Paste the contents of `device-logger.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +36,17 @@ add name="device-logger" interval=1m on-event="/system script run device-logger"
 
 ### 📝 Περιγραφή
 
-Καταγράφει νέες MAC και IP διευθύνσεις συσκευών που συνδέονται στο LAN και προαιρετικά στέλνει email.
+Καταγράφει νέες διευθύνσεις MAC και στέλνει email ειδοποιήσεις όταν εμφανίζονται νέες συσκευές.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local emailTo "you@example.com"
+:local emailSubject "New device detected"
+:local emailBody "A new MAC address has appeared on your network."
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +56,6 @@ add name="device-logger" interval=1m on-event="/system script run device-logger"
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler

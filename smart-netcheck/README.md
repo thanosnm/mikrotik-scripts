@@ -4,31 +4,26 @@
 
 ### 📝 Description
 
-Performs multi-layer internet checks and logs failures or restarts WAN as needed.
+Performs layered connectivity checks and logs problems or restarts WAN if needed.
 
 ### ⚙️ Configuration
 
-Before running the script, make sure to configure these values inside the script:
+Edit these variables inside the script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local testHosts {"1.1.1.1";"8.8.8.8"}
+:local retryCount 2
+:local wanInterface "ether1"
 ```
-
-Ensure that email settings are properly configured in `/tool e-mail`.
 
 ### 📥 Installation
 
 1. Go to **System > Scripts**
-2. Create a new script named `smart-netcheck`
+2. Create a script named `smart-netcheck`
 3. Paste the contents of `smart-netcheck.rsc`
 4. Set permissions: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler Setup
-
-To run the script every day:
 
 ```rsc
 /system scheduler
@@ -41,20 +36,17 @@ add name="smart-netcheck" interval=1m on-event="/system script run smart-netchec
 
 ### 📝 Περιγραφή
 
-Εκτελεί πολλαπλούς ελέγχους συνδεσιμότητας και καταγράφει ή επανεκκινεί τη WAN εφόσον χρειαστεί.
+Κάνει σύνθετους ελέγχους συνδεσιμότητας και επανεκκινεί τη WAN σε προβλήματα.
 
 ### ⚙️ Ρυθμίσεις
 
-Πριν εκτελέσετε το script, ρυθμίστε τις εξής μεταβλητές μέσα στο script:
+Αλλάξτε τις εξής μεταβλητές στο script:
 
 ```rsc
-:local emailTo "your@email.com"
-:local backupName "router-backup"
-/system backup save name=$backupName
-/export file=$backupName
+:local testHosts {"1.1.1.1";"8.8.8.8"}
+:local retryCount 2
+:local wanInterface "ether1"
 ```
-
-Βεβαιωθείτε ότι το email είναι σωστά ρυθμισμένο στο `/tool e-mail`.
 
 ### 📥 Εγκατάσταση
 
@@ -64,8 +56,6 @@ add name="smart-netcheck" interval=1m on-event="/system script run smart-netchec
 4. Ρύθμισε δικαιώματα: `read`, `write`, `policy`, `test`
 
 ### ⏱️ Scheduler
-
-Για να τρέχει κάθε μέρα:
 
 ```rsc
 /system scheduler
